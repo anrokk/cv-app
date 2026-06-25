@@ -1,3 +1,6 @@
+import { headers } from "next/headers"
+import { redirect } from "next/navigation"
+
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   Breadcrumb,
@@ -13,8 +16,33 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import type { CurrentUser } from "@/types/auth/user"
 
-export default function Page() {
+async function getCurrentUser(): Promise<CurrentUser | null> {
+  const requestHeaders = await headers()
+  const host = requestHeaders.get("host") ?? "localhost:3000"
+  const protocol = requestHeaders.get("x-forwarded-proto") ?? "http"
+  const cookie = requestHeaders.get("cookie")
+
+  const response = await fetch(`${protocol}://${host}/api/auth/me`, {
+    headers: cookie ? { cookie } : undefined,
+    cache: "no-store",
+  }).catch(() => null)
+
+  if (!response?.ok) {
+    return null
+  }
+
+  return response.json()
+}
+
+export default async function Page() {
+  const user = await getCurrentUser()
+
+  if (!user) {
+    redirect("/login")
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -28,11 +56,11 @@ export default function Page() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">Build Your Application</BreadcrumbLink>
+                <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                <BreadcrumbPage>Authenticated</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
