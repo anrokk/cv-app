@@ -17,6 +17,7 @@ public class UserService {
 
     public UserResponse createUser(CreateUserRequest request) {
         String email = normalizeEmail(request.getEmail());
+        String passwordHash = passwordEncoder.encode(request.getPassword());
 
         if (!StringUtils.hasText(request.getPassword())) {
             throw new IllegalArgumentException("Password is required");
@@ -27,7 +28,7 @@ public class UserService {
 
         User user = new User();
         user.setEmail(email);
-        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+        user.setPasswordHash(passwordHash);
 
         User savedUser = userRepository.save(user);
 
