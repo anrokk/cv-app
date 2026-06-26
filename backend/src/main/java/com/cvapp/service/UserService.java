@@ -17,7 +17,6 @@ public class UserService {
 
     public UserResponse createUser(CreateUserRequest request) {
         String email = normalizeEmail(request.getEmail());
-        String passwordHash = passwordEncoder.encode(request.getPassword());
 
         if (!StringUtils.hasText(request.getPassword())) {
             throw new IllegalArgumentException("Password is required");
@@ -25,6 +24,8 @@ public class UserService {
         if (userRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already in use");
         }
+
+        String passwordHash = passwordEncoder.encode(request.getPassword());
 
         User user = new User();
         user.setEmail(email);
