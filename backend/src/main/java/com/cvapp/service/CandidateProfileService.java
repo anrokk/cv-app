@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.cvapp.dto.CandidateProfileRequest;
 import com.cvapp.dto.CandidateProfileResponse;
+import com.cvapp.mapper.CandidateProfileMapper;
 import com.cvapp.model.CandidateProfile;
 import com.cvapp.repository.CandidateProfileRepository;
 import com.cvapp.model.User;
@@ -17,10 +18,11 @@ import lombok.RequiredArgsConstructor;
 public class CandidateProfileService {
     private final CandidateProfileRepository candidateProfileRepository;
     private final UserService userService;
+    private final CandidateProfileMapper candidateProfileMapper;
 
     public Optional<CandidateProfileResponse> getProfile(String email) {
         return candidateProfileRepository.findByUserEmail(email)
-                .map(this::toResponse);
+                .map(candidateProfileMapper::toEntity);
     }
 
     public CandidateProfileResponse saveProfile(String email, CandidateProfileRequest request) {
@@ -41,20 +43,7 @@ public class CandidateProfileService {
         profile.setFamiliarSkills(request.getFamiliarSkills());
         profile.setDoNotOversellSkills(request.getDoNotOversellSkills());
 
-        return toResponse(candidateProfileRepository.save(profile));
-    }
-
-    private CandidateProfileResponse toResponse(CandidateProfile profile) {
-        return new CandidateProfileResponse(
-                profile.getId(),
-                profile.getIntroduction(),
-                profile.getBaseCvText(),
-                profile.getTargetRoles(),
-                profile.getCareerStage(),
-                profile.getStrongSkills(),
-                profile.getComfortableSkills(),
-                profile.getFamiliarSkills(),
-                profile.getDoNotOversellSkills());
+        return candidateProfileMapper.toEntity(candidateProfileRepository.save(profile));
     }
 
 }
