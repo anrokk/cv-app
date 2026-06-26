@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-26T11:29:41Z",
+  "title": "Design System: Prepared Application Desk",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Clean Desk White",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.25 0 0)",
+          "oklch(0.35 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.65 0 0)",
+          "oklch(0.78 0 0)",
+          "oklch(0.90 0 0)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Document Ink",
+        "canonical": "oklch(0.145 0 0)",
+        "tonalRamp": [
+          "oklch(0.145 0 0)",
+          "oklch(0.25 0 0)",
+          "oklch(0.35 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.65 0 0)",
+          "oklch(0.78 0 0)",
+          "oklch(0.90 0 0)",
+          "oklch(0.98 0 0)"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Application Violet",
+        "canonical": "oklch(0.457 0.24 277.023)",
+        "tonalRamp": [
+          "oklch(0.18 0.10 277.023)",
+          "oklch(0.28 0.14 277.023)",
+          "oklch(0.38 0.20 277.023)",
+          "oklch(0.457 0.24 277.023)",
+          "oklch(0.58 0.20 277.023)",
+          "oklch(0.70 0.16 277.023)",
+          "oklch(0.84 0.09 277.023)",
+          "oklch(0.95 0.03 277.023)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Quiet Panel",
+        "canonical": "oklch(0.97 0 0)",
+        "tonalRamp": [
+          "oklch(0.18 0 0)",
+          "oklch(0.28 0 0)",
+          "oklch(0.40 0 0)",
+          "oklch(0.55 0 0)",
+          "oklch(0.70 0 0)",
+          "oklch(0.84 0 0)",
+          "oklch(0.92 0 0)",
+          "oklch(0.97 0 0)"
+        ]
+      },
+      "destructive": {
+        "role": "error",
+        "displayName": "Correction Red",
+        "canonical": "oklch(0.577 0.245 27.325)",
+        "tonalRamp": [
+          "oklch(0.18 0.08 27.325)",
+          "oklch(0.28 0.12 27.325)",
+          "oklch(0.40 0.18 27.325)",
+          "oklch(0.577 0.245 27.325)",
+          "oklch(0.68 0.19 27.325)",
+          "oklch(0.78 0.13 27.325)",
+          "oklch(0.88 0.07 27.325)",
+          "oklch(0.96 0.03 27.325)"
+        ]
+      },
+      "sidebar": {
+        "role": "neutral",
+        "displayName": "Sidebar Paper",
+        "canonical": "oklch(0.985 0 0)",
+        "tonalRamp": [
+          "oklch(0.18 0 0)",
+          "oklch(0.30 0 0)",
+          "oklch(0.42 0 0)",
+          "oklch(0.56 0 0)",
+          "oklch(0.70 0 0)",
+          "oklch(0.84 0 0)",
+          "oklch(0.94 0 0)",
+          "oklch(0.985 0 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Compact page or form titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Panel titles and local section headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Primary UI copy and workflow instructions."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, labels, and navigation items."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Small technical notes and keyboard hints."
+      }
+    },
+    "shadows": [
+      {
+        "name": "inset-shell-lift",
+        "value": "shadow-sm",
+        "purpose": "Structural separation for inset app shells only."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px color-mix(in oklch, var(--ring) 30%, transparent)",
+        "purpose": "Keyboard focus and invalid field emphasis."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-transition",
+        "value": "150ms to 250ms ease-out",
+        "purpose": "Hover, focus, active, and disclosure state changes."
+      },
+      {
+        "name": "sidebar-transition",
+        "value": "200ms linear width and position transition",
+        "purpose": "Existing sidebar expand, collapse, and offcanvas motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "768px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action button for application workflow decisions.",
+      "html": "<button class=\"ds-btn-primary\">Generate tailored CV</button>",
+      "css": ".ds-btn-primary { height: 32px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 12px; border: 1px solid transparent; border-radius: 18px; background: var(--primary); color: var(--primary-foreground); font: 500 14px/1.35 Geist, system-ui, sans-serif; white-space: nowrap; transition: background-color 180ms ease-out, transform 120ms ease-out, box-shadow 180ms ease-out; } .ds-btn-primary:hover { background: color-mix(in oklch, var(--primary), transparent 20%); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring), transparent 70%); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action for alternatives such as Google sign-in or cancel-like choices.",
+      "html": "<button class=\"ds-btn-outline\">Continue with Google</button>",
+      "css": ".ds-btn-outline { height: 32px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 12px; border: 1px solid var(--border); border-radius: 18px; background: var(--background); color: var(--foreground); font: 500 14px/1.35 Geist, system-ui, sans-serif; white-space: nowrap; transition: background-color 180ms ease-out, color 180ms ease-out, box-shadow 180ms ease-out; } .ds-btn-outline:hover { background: var(--muted); color: var(--foreground); } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring), transparent 70%); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Compact field for auth, profile, and job-description inputs.",
+      "html": "<input class=\"ds-input\" placeholder=\"m@example.com\" />",
+      "css": ".ds-input { width: 100%; min-width: 0; height: 32px; padding: 4px 10px; border: 1px solid transparent; border-radius: 18px; background: color-mix(in oklch, var(--input), transparent 50%); color: var(--foreground); font: 400 14px/1.5 Geist, system-ui, sans-serif; transition: color 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out; } .ds-input::placeholder { color: var(--muted-foreground); } .ds-input:focus-visible { outline: none; border-color: var(--ring); box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring), transparent 70%); } .ds-input[aria-invalid='true'] { border-color: var(--destructive); box-shadow: 0 0 0 3px color-mix(in oklch, var(--destructive), transparent 80%); }"
+    },
+    {
+      "name": "Sidebar Menu Item",
+      "kind": "nav",
+      "refersTo": "sidebar-menu-item",
+      "description": "Compact navigation row for authenticated workflow sections.",
+      "html": "<a class=\"ds-sidebar-item\" href=\"#\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 5h16v4H4zM4 11h16v8H4z\" fill=\"currentColor\" /></svg><span>Applications</span></a>",
+      "css": ".ds-sidebar-item { height: 32px; display: flex; align-items: center; gap: 8px; overflow: hidden; padding: 8px 12px; border-radius: 14px; background: transparent; color: var(--sidebar-foreground); font: 400 14px/1.5 Geist, system-ui, sans-serif; text-decoration: none; white-space: nowrap; transition: background-color 180ms ease-out, color 180ms ease-out; } .ds-sidebar-item svg { width: 16px; height: 16px; flex: 0 0 auto; } .ds-sidebar-item:hover, .ds-sidebar-item[data-active='true'] { background: var(--sidebar-accent); color: var(--sidebar-accent-foreground); } .ds-sidebar-item[data-active='true'] { font-weight: 500; } .ds-sidebar-item:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in oklch, var(--sidebar-ring), transparent 70%); }"
+    },
+    {
+      "name": "Skeleton Block",
+      "kind": "card",
+      "refersTo": "skeleton",
+      "description": "Muted loading placeholder that preserves content shape.",
+      "html": "<div class=\"ds-skeleton\" aria-hidden=\"true\"></div>",
+      "css": ".ds-skeleton { width: 100%; height: 96px; border-radius: 18px; background: var(--muted); animation: ds-pulse 1.6s ease-in-out infinite; } @keyframes ds-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } } @media (prefers-reduced-motion: reduce) { .ds-skeleton { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Prepared Application Desk",
+    "overview": "The interface should feel like a clear desk before sending one important application: quiet, organized, and focused on the next honest action. The current system is a restrained product UI built from shadcn primitives, Geist typography, OKLCH tokens, rounded controls, and flat tonal layering.\n\nThis system serves applicants who need speed without exaggeration. Screens should make it easy to paste a job description, classify confidence levels, review reasoning, and edit generated documents without visual noise. It explicitly rejects clumsy, scattered, or visually noisy interfaces and any generic \"AI resume builder\" posture.",
+    "keyCharacteristics": [
+      "Restrained white and near-white surfaces with one violet action accent.",
+      "Small, consistent Geist type for dense product workflows.",
+      "Rounded, compact controls that preserve a calm task rhythm.",
+      "Tonal layering and focus rings instead of decorative shadows.",
+      "Copy and UI structure that keep truthful evidence visible."
+    ],
+    "rules": [
+      {
+        "name": "The Violet Earns Attention Rule",
+        "body": "Violet is for primary action, active state, and meaningful selection only. Never use it as decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Clean Desk Rule",
+        "body": "White and quiet panels carry the interface. Avoid tinted mood backgrounds, gradient fields, and ornamental color blocks.",
+        "section": "colors"
+      },
+      {
+        "name": "The Product Type Rule",
+        "body": "Use Geist for product UI. Do not introduce display fonts, decorative type pairings, or fluid type scales into authenticated workflows.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plain Label Rule",
+        "body": "Labels and button text are sentence case. No tracked uppercase UI chrome.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Workspace Rule",
+        "body": "Surfaces rest flat. If a shadow is visible before interaction, it must explain structure, not decorate.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Application Violet only for primary actions, active states, and meaningful selections.",
+      "Do keep authenticated product screens compact, calm, and task-led.",
+      "Do show matched skills, gaps, warnings, and wording choices near generated content so the user can trust the output.",
+      "Do use visible focus rings, semantic labels, and reduced-motion-safe transitions.",
+      "Do keep button labels concrete: \"Create account\", \"Save profile\", \"Generate tailored CV\", \"Download PDF\"."
+    ],
+    "donts": [
+      "Don't build a generic \"AI resume builder\" interface or use vague motivational copy.",
+      "Don't create clumsy, scattered, or visually noisy screens.",
+      "Don't use exaggerated self-promotion, inflated cover-letter language, or UI that makes juniors sound senior.",
+      "Don't make the product feel like a template marketplace, a gamified job board, or a marketing-heavy SaaS dashboard.",
+      "Don't bury the user's real evidence under decorative cards, gradients, glass effects, or ornamental illustrations.",
+      "Don't use colored side-stripe borders, gradient text, repeating stripe backgrounds, or decorative glassmorphism."
+    ]
+  }
+}
