@@ -1,6 +1,7 @@
 package com.cvapp.service;
 
 import com.cvapp.dto.CreateUserRequest;
+import com.cvapp.dto.UpdateUserRequest;
 import com.cvapp.dto.UserResponse;
 import com.cvapp.model.User;
 import com.cvapp.repository.UserRepository;
@@ -42,13 +43,27 @@ public class UserService {
         return toResponse(user);
     }
 
+    public UserResponse updateUser(String currentEmail, UpdateUserRequest request) {
+        User user = getByEmail(currentEmail);
+        String email = normalizeEmail(request.getEmail());
+
+        if (userRepository.existsByEmailAndIdNot(email, user.getId())) {
+            throw new IllegalArgumentException("Email already in use");
+        }
+
+        user.setEmail(email);
+        user.setFullName(normalizeOptionalText(request.getFullName()));
+
+        return toResponse(userRepository.save(user));
+    }
+
     public User getByEmail(String email) {
         return userRepository.findByEmail(normalizeEmail(email))
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
     public UserResponse toResponse(User user) {
-        return new UserResponse(user.getId(), user.getEmail());
+        return new UserResponse(user.getId(), user.getEmail(), user.getFullName());
     }
 
     private String normalizeEmail(String email) {
@@ -57,5 +72,13 @@ public class UserService {
         }
 
         return email.trim().toLowerCase();
+    }
+
+    private String normalizeOptionalText(String value) {
+        if (!StringUtils.hasText(value)) {
+            return null;
+        }
+
+        return value.trim();
     }
 }

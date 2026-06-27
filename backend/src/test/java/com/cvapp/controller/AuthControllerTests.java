@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -86,6 +87,51 @@ class AuthControllerTests {
     void signupRejectsWeakPassword() throws Exception {
         signup("weak@example.com", "short")
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void updateMeChangesEmailAndFullName() throws Exception {
+        MvcResult result = signup("settings@example.com", VALID_PASSWORD)
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MockHttpSession session = (MockHttpSession) result.getRequest().getSession(false);
+
+        mockMvc.perform(put("/api/auth/me")
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"email":"updated@example.com","fullName":"Ada Lovelace"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email").value("updated@example.com"))
+                .andExpect(jsonPath("$.fullName").value("Ada Lovelace"));
+
+        mockMvc.perform(get("/api/auth/me").session(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email").value("updated@example.com"))
+                .andExpect(jsonPath("$.fullName").value("Ada Lovelace"));
+    }
+
+    @Test
+    void updateMeRejectsDuplicateEmail() throws Exception {
+        signup("existing@example.com", VALID_PASSWORD)
+                .andExpect(status().isOk());
+
+        MvcResult result = signup("settings@example.com", VALID_PASSWORD)
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MockHttpSession session = (MockHttpSession) result.getRequest().getSession(false);
+
+        mockMvc.perform(put("/api/auth/me")
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"email":"existing@example.com","fullName":"Ada Lovelace"}
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Email already in use"));
     }
 
     private org.springframework.test.web.servlet.ResultActions signup(String email, String password) throws Exception {

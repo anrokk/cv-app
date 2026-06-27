@@ -9,6 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
     private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
     public UserResponse authenticateAndSaveSession(
@@ -36,5 +39,23 @@ public class AuthService {
         securityContextRepository.saveContext(context, httpRequest, httpResponse);
 
         return userService.getUserByEmail(authentication.getName());
+    }
+
+    public void refreshSavedSession(
+            String email,
+            HttpServletRequest httpRequest,
+            HttpServletResponse httpResponse
+    ) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                userDetails.getPassword(),
+                userDetails.getAuthorities()
+        );
+
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+        securityContextRepository.saveContext(context, httpRequest, httpResponse);
     }
 }

@@ -2,6 +2,7 @@ package com.cvapp.controller;
 
 import com.cvapp.dto.CreateUserRequest;
 import com.cvapp.dto.LoginRequest;
+import com.cvapp.dto.UpdateUserRequest;
 import com.cvapp.dto.UserResponse;
 import com.cvapp.service.AuthService;
 import com.cvapp.service.UserService;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,5 +58,18 @@ public class AuthController {
     @GetMapping("/me")
     public UserResponse me(@AuthenticationPrincipal UserDetails userDetails) {
         return userService.getUserByEmail(userDetails.getUsername());
+    }
+
+    @PutMapping("/me")
+    public UserResponse updateMe(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @Valid @RequestBody UpdateUserRequest request,
+            HttpServletRequest httpRequest,
+            HttpServletResponse httpResponse
+    ) {
+        UserResponse user = userService.updateUser(userDetails.getUsername(), request);
+        authService.refreshSavedSession(user.getEmail(), httpRequest, httpResponse);
+
+        return user;
     }
 }

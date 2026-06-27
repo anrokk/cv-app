@@ -34,7 +34,6 @@ import type { CurrentUser } from "@/types/auth/user"
 type NavUserProps = {
   user: CurrentUser & {
     avatar?: string
-    name?: string
   }
 }
 
@@ -46,7 +45,7 @@ export function NavUser({ user }: NavUserProps) {
   const { isMobile } = useSidebar()
   const router = useRouter()
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false)
-  const name = user.name ?? user.email
+  const name = user.fullName || user.email
   const fallback = getUserInitial(user.email)
 
   async function handleLogout() {
