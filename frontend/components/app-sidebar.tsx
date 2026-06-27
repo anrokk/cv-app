@@ -1,5 +1,13 @@
+"use client"
+
 import * as React from "react"
-import { LayoutDashboardIcon } from "lucide-react"
+import { usePathname } from "next/navigation"
+import {
+  ClipboardListIcon,
+  LayoutDashboardIcon,
+  SettingsIcon,
+  UserRoundIcon,
+} from "lucide-react"
 
 import { LogoutButton } from "@/components/logout-button"
 import {
@@ -16,30 +24,63 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
+const navItems = [
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboardIcon,
+  },
+  {
+    title: "Profile",
+    href: "/profile",
+    icon: UserRoundIcon,
+  },
+  {
+    title: "Applications",
+    href: "/applications",
+    icon: ClipboardListIcon,
+  },
+  {
+    title: "Settings",
+    href: "/settings",
+    icon: SettingsIcon,
+  }
+]
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname()
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
         <div className="flex flex-col gap-1 px-2 py-1">
-          <span className="text-sm font-medium">CV App</span>
+          <span className="text-sm font-medium">Insert app logo</span>
           <span className="text-xs text-muted-foreground">
-            Honest application tailoring
+            blalba
           </span>
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive>
-                  <a href="/dashboard">
-                    <LayoutDashboardIcon />
-                    <span>Dashboard</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {navItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={
+                      pathname === item.href ||
+                      (item.href !== "/dashboard" &&
+                        pathname.startsWith(`${item.href}/`))
+                    }
+                  >
+                    <a href={item.href}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
