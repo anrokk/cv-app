@@ -13,7 +13,7 @@ export default async function Page() {
   }
 
   return (
-    <AppShell breadcrumbPage="Applications">
+    <AppShell breadcrumbPage="Applications" user={user}>
       <main className="flex flex-1 flex-col gap-6 p-4 md:p-8">
         <div className="max-w-3xl">
           <h1 className="text-2xl font-semibold tracking-tight">

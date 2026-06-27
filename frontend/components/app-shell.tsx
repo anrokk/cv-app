@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 
 import { AppSidebar } from "@/components/app-sidebar"
+import type { CurrentUser } from "@/types/auth/user"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -19,12 +20,13 @@ import {
 type AppShellProps = {
   breadcrumbPage: string
   children: ReactNode
+  user: CurrentUser
 }
 
-export function AppShell({ breadcrumbPage, children }: AppShellProps) {
+export function AppShell({ breadcrumbPage, children, user }: AppShellProps) {
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar user={user} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />

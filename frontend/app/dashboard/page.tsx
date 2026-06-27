@@ -15,7 +15,7 @@ export default async function Page() {
   const profile = await getCandidateProfile()
 
   return (
-    <AppShell breadcrumbPage="Candidate profile">
+    <AppShell breadcrumbPage="Candidate profile" user={user}>
       <main className="flex flex-1 flex-col gap-6 p-4 md:p-8">
         <div className="max-w-3xl">
           <h1 className="text-2xl font-semibold tracking-tight">
