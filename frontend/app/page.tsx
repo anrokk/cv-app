@@ -269,10 +269,10 @@ export default function Page() {
       <section id="questions" className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-10 lg:py-28">
         <div>
           <h2 className="text-3xl font-semibold leading-tight tracking-[-0.02em] text-balance sm:text-4xl">
-            Practical questions.
+            Frequently asked questions.
           </h2>
           <p className="mt-4 max-w-[42ch] leading-7 text-muted-foreground">
-            Built for one careful application at a time.
+            Clear answers before you start tailoring.
           </p>
         </div>
         <div className="divide-y divide-border border-y border-border">
@@ -296,10 +296,10 @@ export default function Page() {
         <div className="flex flex-col gap-5 border-t border-border pt-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-xl font-semibold tracking-[-0.02em] text-balance">
-              Use the role. Keep your evidence.
+              Tailor one application now.
             </h2>
             <p className="mt-2 max-w-[44ch] text-sm leading-6 text-muted-foreground">
-              Start from one CV and one job description.
+              Add a job description. Review every suggested claim.
             </p>
           </div>
           <Button size="lg" asChild>
