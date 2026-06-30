@@ -2,6 +2,7 @@
 
 import { type FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -59,6 +60,7 @@ export function AccountSettingsForm({ user }: AccountSettingsFormProps) {
       }
 
       setSuccess("Account details updated.")
+      toast.success("Profile settings updated.")
       router.refresh()
     } catch (error) {
       setError(

@@ -2,6 +2,7 @@
 
 import { type FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -135,6 +136,7 @@ export function CandidateProfileDialog({
       }
 
       setSuccess("Profile saved.")
+      toast.success("Profile saved.")
       router.refresh()
       window.setTimeout(() => setOpen(false), 400)
     } catch (error) {
