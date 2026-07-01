@@ -10,6 +10,7 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { SmoothHashLink } from "@/components/smooth-hash-link"
 
 const proofPoints = [
   {
@@ -88,12 +89,18 @@ export default function Page() {
           TBA
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
-          <a className="transition-colors hover:text-foreground" href="#how-it-works">
+          <SmoothHashLink
+            className="transition-colors hover:text-foreground"
+            href="/#how-it-works"
+          >
             How it works
-          </a>
-          <a className="transition-colors hover:text-foreground" href="#questions">
+          </SmoothHashLink>
+          <SmoothHashLink
+            className="transition-colors hover:text-foreground"
+            href="/#questions"
+          >
             Questions
-          </a>
+          </SmoothHashLink>
         </nav>
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" asChild>
@@ -125,7 +132,7 @@ export default function Page() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <a href="#how-it-works">View flow</a>
+              <SmoothHashLink href="/#how-it-works">View flow</SmoothHashLink>
             </Button>
           </div>
         </div>
